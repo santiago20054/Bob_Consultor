@@ -1,0 +1,7 @@
+python-dotenv
+deep-translator
+pandas
+streamlit
+langchain-groq
+pandasai
+openpyxl
