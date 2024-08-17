@@ -7,6 +7,7 @@ import streamlit as st
 
 from langchain_groq.chat_models import ChatGroq
 from pandasai import Agent
+from PIL import Image 
 
 # Cargar variables de entorno
 load_dotenv(override=True)
@@ -37,9 +38,17 @@ if uploaded_file is not None:
 
         if prompt:
             with st.spinner("Generando respuesta..."):
-                st.markdown("Respuesta: ")
+                st.markdown('<h2 style="color:green;">Respuesta: </h2>', unsafe_allow_html=True)
                 st.write(agent.chat(query))
 
+                # Asume que la imagen se guarda en esta ruta
+                image_path = 'exports/charts/temp_chart.png'
+
+                if os.path.exists(image_path):
+                    image = Image.open(image_path)
+                    st.image(image, caption='Imagen generada por el agente', use_column_width=True)
+                else:
+                    st.error("La imagen no se encontró en la ruta especificada.")
                 # Get Clarification Questions
                 questions = agent.clarification_questions(query)
 
