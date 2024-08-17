@@ -38,8 +38,16 @@ if uploaded_file is not None:
 
         if prompt:
             with st.spinner("Generando respuesta..."):
+                # Ruta de la imagen generada
+                image_path = 'exports/charts/temp_chart.png'
+
+                # Eliminar la imagen anterior si existe
+                if os.path.exists(image_path):
+                    os.remove(image_path)
+
                 st.markdown('<h2 style="color:green;">Respuesta: </h2>', unsafe_allow_html=True)
-                st.write(agent.chat(query))
+                response = agent.chat(query)
+                st.markdown(f'<div style="font-size:20px;">{response}</div>', unsafe_allow_html=True)
 
                 # Asume que la imagen se guarda en esta ruta
                 image_path = 'exports/charts/temp_chart.png'
@@ -48,7 +56,7 @@ if uploaded_file is not None:
                     image = Image.open(image_path)
                     st.image(image, caption='Imagen generada por el agente', use_column_width=True)
                 else:
-                    st.error("La imagen no se encontró en la ruta especificada.")
+                    st.info("No hay una imagen asociada para esta respuesta.")
                 # Get Clarification Questions
                 questions = agent.clarification_questions(query)
 
