@@ -47,7 +47,7 @@ if uploaded_file is not None:
 
                 st.markdown('<h2 style="color:green;">Respuesta: </h2>', unsafe_allow_html=True)
                 response = agent.chat(query)
-                st.markdown(f'<div style="font-size:20px;">{response}</div>', unsafe_allow_html=True)
+                st.write(response)
 
                 # Asume que la imagen se guarda en esta ruta
                 image_path = 'exports/charts/temp_chart.png'
